@@ -45,6 +45,7 @@ const modals = () => {
         setTimeout(() => {
             document.querySelector(selector).style.display = "block";
             document.body.classList.add('modal-open');
+            /*       document.body.style.overflow = ""; */
         }, time);
     }
 
