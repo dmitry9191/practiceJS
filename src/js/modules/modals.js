@@ -4,13 +4,21 @@ const modals = () => {
         const trigger = document.querySelectorAll(triggerSelector),
               modal = document.querySelector(modalSelector),
               close = document.querySelector(closeSelector),
-              windows = document.querySelectorAll("[data-modal]");
+              windows = document.querySelectorAll("[data-modal]"),
+              endForm = document.querySelector("[data-calc]");
 
         const closeWindows = () => {
             windows.forEach(item => {
                 item.style.display = 'none';
             });
         };
+
+        endForm.addEventListener('submit', (e) => {
+            setTimeout(() => {
+                closeWindows();
+                document.body.classList.remove('modal-open');
+            }, 5000);
+        });
 
         trigger.forEach(item => {
             item.addEventListener('click', (e) => {
