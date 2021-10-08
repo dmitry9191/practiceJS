@@ -1,11 +1,13 @@
-const modals = () => {
+const modals = (state) => {
     function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = true) {
         
         const trigger = document.querySelectorAll(triggerSelector),
               modal = document.querySelector(modalSelector),
               close = document.querySelector(closeSelector),
               windows = document.querySelectorAll("[data-modal]"),
-              endForm = document.querySelector("[data-calc]");
+              lastForm = document.querySelector("[data-calc]");
+
+        let checkInputsResult = true;
 
         const closeWindows = () => {
             windows.forEach(item => {
@@ -13,11 +15,32 @@ const modals = () => {
             });
         };
 
-        endForm.addEventListener('submit', (e) => {
+        const checkInputs = (trigger) => {
+            const stateKeys = Object.keys(state);
+            
+            switch(trigger) {
+                case "button popup_calc_button":
+                    stateKeys.length >= 4 ? checkInputsResult = true : checkInputsResult = false;
+                    break;
+                case "button popup_calc_profile_button":
+                    stateKeys.length === 5 ? checkInputsResult = true : checkInputsResult = false;
+                    break;
+                default:
+                    checkInputsResult = true;
+            }
+        };
+
+        lastForm.addEventListener('submit', (e) => {
             setTimeout(() => {
                 closeWindows();
                 document.body.classList.remove('modal-open');
-            }, 5000);
+                for (let key in state) {
+                    if (key === 'type' || key === 'form') {
+                        continue;
+                    }
+                    delete state[key];
+                }
+            }, 2000);
         });
 
         trigger.forEach(item => {
@@ -25,9 +48,16 @@ const modals = () => {
                 if (e.target) {
                     e.preventDefault();
                 }
-                closeWindows();
-                modal.style.display = "block";
-                document.body.classList.add('modal-open');
+
+                checkInputs(item.className);
+
+                if (checkResult) {
+                    closeWindows();
+                    modal.style.display = "block";
+                    document.body.classList.add('modal-open');
+                } else {
+                    alert("Выберите все пункты!");
+                }
                 /* document.body.style.overflow = "hidden"; */
             });
         });
