@@ -51,7 +51,7 @@ const modals = (state) => {
 
                 checkInputs(item.className);
 
-                if (checkResult) {
+                if (checkInputsResult) {
                     closeWindows();
                     modal.style.display = "block";
                     document.body.classList.add('modal-open');
