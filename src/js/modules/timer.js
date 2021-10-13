@@ -17,10 +17,10 @@ const timer = (id, deadline) => {
 
         return {
             total: t,
-            days: days,
-            hours: hours,
-            minutes: minutes,
-            seconds: seconds
+            days,
+            hours,
+            minutes,
+            seconds
         }
     };
 

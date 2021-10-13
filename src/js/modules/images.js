@@ -10,6 +10,10 @@ const images = () => {
     imgPopup.style.justifyContent = 'center';
     imgPopup.style.alignItems = 'center';
     imgPopup.style.display = 'none';
+    bigImage.style.width = '600px';
+    bigImage.style.height = '600px';
+    bigImage.style.border = '2px solid white';
+    bigImage.style.borderRadius = '10px';
 
     imgPopup.appendChild(bigImage);
 
@@ -21,9 +25,15 @@ const images = () => {
 
         if (target && target.classList.contains('preview')) {
             imgPopup.style.display = 'flex';
+            document.body.classList.add('modal-open');
             
             const path = target.parentNode.getAttribute('href');
             bigImage.setAttribute('src', path);
+        }
+
+        if (target && target.matches('div.popup')) {
+            imgPopup.style.display = 'none';
+            document.body.classList.remove('modal-open');   
         }
 
     });
